@@ -61,18 +61,26 @@ func GetSpokeCredentials(input *SpokeCredentialsInput) (*types.Credentials, aws.
 	input.Config.Credentials = aws.NewCredentialsCache(
 		stscreds.NewAssumeRoleProvider(stsHubClient, hubRoleARN, func(o *stscreds.AssumeRoleOptions) {
 			o.RoleSessionName = sessionName
-			o.ExternalID = aws.String(input.ExternalID)
+
+			if input.ExternalID != "" {
+				o.ExternalID = aws.String(input.ExternalID)
+			}
 		}),
 	)
 
 	// Assume the SPOKE role.
 	stsSpokeClient := sts.NewFromConfig(*input.Config)
 
-	response, err := stsSpokeClient.AssumeRole(input.Context, &sts.AssumeRoleInput{
+	assumeRoleInput := &sts.AssumeRoleInput{
 		RoleArn:         aws.String(spokeRoleARN),
 		RoleSessionName: aws.String(fmt.Sprintf("%s-%s", input.SpokeAccountID, sessionName)),
-		ExternalId:      aws.String(input.ExternalID),
-	})
+	}
+
+	if input.ExternalID != "" {
+		assumeRoleInput.ExternalId = aws.String(input.ExternalID)
+	}
+
+	response, err := stsSpokeClient.AssumeRole(input.Context, assumeRoleInput)
 	if err != nil {
 		return &emptyCredentials, emptyConfig, errors.Wrap(err, fmt.Sprintf(
 			"error assuming '%s' role in account %s",
@@ -84,7 +92,10 @@ func GetSpokeCredentials(input *SpokeCredentialsInput) (*types.Credentials, aws.
 	input.Config.Credentials = aws.NewCredentialsCache(
 		stscreds.NewAssumeRoleProvider(stsSpokeClient, spokeRoleARN, func(o *stscreds.AssumeRoleOptions) {
 			o.RoleSessionName = fmt.Sprintf("%s-%s", input.SpokeAccountID, sessionName)
-			o.ExternalID = aws.String(input.ExternalID)
+
+			if input.ExternalID != "" {
+				o.ExternalID = aws.String(input.ExternalID)
+			}
 		}),
 	)
 
