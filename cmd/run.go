@@ -137,24 +137,32 @@ func init() {
 
 	var err error
 
-	err = runCmd.MarkFlagRequired("hub-account")
-	if err != nil {
-		exiterrorf.ExitErrorf(errors.Wrap(err, "could not mark the hub-account flag as required"))
+	if hubAccount == "" {
+		err = runCmd.MarkFlagRequired("hub-account")
+		if err != nil {
+			exiterrorf.ExitErrorf(errors.Wrap(err, "could not mark the hub-account flag as required"))
+		}
 	}
 
-	err = runCmd.MarkFlagRequired("hub-role")
-	if err != nil {
-		exiterrorf.ExitErrorf(errors.Wrap(err, "could not mark the hub-role flag as required"))
+	if hubRole == "" {
+		err = runCmd.MarkFlagRequired("hub-role")
+		if err != nil {
+			exiterrorf.ExitErrorf(errors.Wrap(err, "could not mark the hub-role flag as required"))
+		}
 	}
 
-	err = runCmd.MarkFlagRequired("spoke-account")
-	if err != nil {
-		exiterrorf.ExitErrorf(errors.Wrap(err, "could not mark the spoke-account flag as required"))
+	if spokeAccount == "" {
+		err = runCmd.MarkFlagRequired("spoke-account")
+		if err != nil {
+			exiterrorf.ExitErrorf(errors.Wrap(err, "could not mark the spoke-account flag as required"))
+		}
 	}
 
-	err = runCmd.MarkFlagRequired("spoke-role")
-	if err != nil {
-		exiterrorf.ExitErrorf(errors.Wrap(err, "could not mark the spoke-role flag as required"))
+	if spokeRole == "" {
+		err = runCmd.MarkFlagRequired("spoke-role")
+		if err != nil {
+			exiterrorf.ExitErrorf(errors.Wrap(err, "could not mark the spoke-role flag as required"))
+		}
 	}
 }
 
