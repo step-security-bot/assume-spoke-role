@@ -57,14 +57,12 @@ Run a command in another account (assuming you have permissions to assume a role
 Assuming you're using [AWS Vault](https://github.com/99designs/aws-vault) to manage your credentials, and want to manage common configurations via environment variables:
 
 ```bash
-# Only if you need this.
-export ASSUME_ROLE_EXTERNAL_ID="this-is-my-automation"
-
 # Optional, but recommended.
-export ASSUME_ROLE_SESSION_STRING="me@example.com"
+export ASSUME_ROLE_SESSION_STRING="me@company.com"
 
 # Pre-configure which things to connect to.
 export ASSUME_ROLE_HUB_ACCOUNT="999999999999"
+export ASSUME_ROLE_SPOKE_ACCOUNT="888888888888"
 export ASSUME_ROLE_HUB_ROLE="automation-hub-role"
 export ASSUME_ROLE_SPOKE_ROLE="automation-spoke-role"
 
@@ -72,7 +70,12 @@ export ASSUME_ROLE_SPOKE_ROLE="automation-spoke-role"
 # account, before pivoting to a "SPOKE" account, then executing a command with
 # those "SPOKE" credentials.
 aws-vault exec sys-automation -- \
-    assume-spoke-role run --spoke-account 888888888888 -- \
+    assume-spoke-role run -- \
+        aws sts get-caller-identity
+
+# OR, override a value at the last minute...
+aws-vault exec sys-automation -- \
+    assume-spoke-role run --spoke-account 777777777777 -- \
         aws sts get-caller-identity
 ```
 
