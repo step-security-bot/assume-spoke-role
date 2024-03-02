@@ -11,7 +11,7 @@ require (
 	github.com/go-faster/errors v0.7.1
 	github.com/gookit/color v1.5.4
 	github.com/northwood-labs/awsutils v0.0.0-20220620172853-924504e83dfb
-	github.com/northwood-labs/golang-utils/archstring v0.0.0-20240301191325-850f76df0fb0
+	github.com/northwood-labs/golang-utils/archstring v0.0.0-20240301221220-6be250811dab
 	github.com/northwood-labs/golang-utils/exiterrorf v0.0.0-20240301221220-6be250811dab
 	github.com/spf13/cobra v1.8.0
 )
