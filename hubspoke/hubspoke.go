@@ -6,6 +6,7 @@ package hubspoke
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/credentials/stscreds"
@@ -72,8 +73,13 @@ func GetSpokeCredentials(input *SpokeCredentialsInput) (*types.Credentials, aws.
 	stsSpokeClient := sts.NewFromConfig(*input.Config)
 
 	assumeRoleInput := &sts.AssumeRoleInput{
-		RoleArn:         aws.String(spokeRoleARN),
-		RoleSessionName: aws.String(fmt.Sprintf("%s-%s", input.SpokeAccountID, sessionName)),
+		RoleArn: aws.String(spokeRoleARN),
+	}
+
+	if sessionName != "" {
+		assumeRoleInput.RoleSessionName = aws.String(input.SpokeAccountID + "-" + sessionName)
+	} else {
+		assumeRoleInput.RoleSessionName = aws.String(input.SpokeAccountID + "-" + getCurrentTime())
 	}
 
 	if input.ExternalID != "" {
@@ -100,4 +106,8 @@ func GetSpokeCredentials(input *SpokeCredentialsInput) (*types.Credentials, aws.
 	)
 
 	return response.Credentials, *input.Config, nil
+}
+
+func getCurrentTime() string {
+	return time.Now().UTC().Format("20060102T150405Z")
 }

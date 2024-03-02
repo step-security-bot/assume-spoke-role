@@ -10,10 +10,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sts v1.28.1
 	github.com/go-faster/errors v0.7.1
 	github.com/gookit/color v1.5.4
-	github.com/jawher/mow.cli v1.2.0
 	github.com/northwood-labs/awsutils v0.0.0-20220620172853-924504e83dfb
 	github.com/northwood-labs/golang-utils/archstring v0.0.0-20240301191325-850f76df0fb0
-	github.com/northwood-labs/golang-utils/exiterrorf v0.0.0-20240301191325-850f76df0fb0
+	github.com/northwood-labs/golang-utils/exiterrorf v0.0.0-20240301221220-6be250811dab
+	github.com/spf13/cobra v1.8.0
 )
 
 require (
@@ -27,8 +27,12 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sso v1.20.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.23.1 // indirect
 	github.com/aws/smithy-go v1.20.1 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
+	golang.org/x/exp v0.0.0-20231206192017-f3f8817b8deb // indirect
 	golang.org/x/sys v0.17.0 // indirect
 
 )

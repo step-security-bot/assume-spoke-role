@@ -12,10 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
-
-import "github.com/northwood-labs/assume-spoke-role/cmd"
-
-func main() {
-	cmd.Execute()
-}
+// Package cmd contains the CLI implementation related to the Cobra package. It
+// is not intended to be used directly.
+package cmd
